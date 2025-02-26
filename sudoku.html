@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+    :root{
+        font-family: 'ArialRounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+        --rich-black: #031926ff;
+        --teal: #468189ff;
+        --cambridge-blue: #77aca2ff;
+        --ash-gray: #9dbebbff;
+    }
+    body{
+        background-color: var(--ash-gray);
+    }
+    footer{
+        background-color: var(--rich-black);
+        position: botton;
+        width: 100%;
+        height: 40px;
+        margin: auto;
+    }
+    footer nav{
+        text-align: center;
+        align-content: center;
+    }
+    nav a{
+        color: var(--ash-gray);
+        padding: 4.3rem;
+        margin: auto;
+    }
+    section{
+        text-align: center;
+        align-content: center;
+    }
+    h1{
+        background-color: var(--teal);
+        text-align: center;
+    }
+    section #tecladoNumerico{
+        background-color: var(--cambridge-blue);
+        border: solid, 2px, red;
+        margin-bottom: 30px auto;
+    }
+    button{
+        color: var(--rich-black);
+        background-color: var(--cambridge-blue);
+        width: 60px;
+        height: 60px;
+        margin: 6px;
+        
+    }
+    .grid-container {
+            display: grid;
+            grid-template-columns: repeat(9, 1fr);
+            gap: 5px;
+            max-width: 400px;
+            width: 100%;
+            margin: 20px auto;
+            margin-bottom: 40px;
+            border: solid, 2px, red;
+        }
+    .grid-item {
+        width: 80%;
+        height: 30px;
+        text-align: center;
+        margin: 0px;
+        border-radius: 5px;
+    }
+    .grid-item:hover{
+        background-color: var(--cambridge-blue);
+    }
+    .actual-Grid{
+        margin-bottom: 20px;
+    }
+    </style>
+
+</head>
+
+<header>
+    <h1>Sudoku diario</h1>
+</header>
+<body>
+    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore illum. Officia, expedita? Animi voluptatibus, aperiam fugit excepturi dolorem saepe.</p>
+    <section id="actual-Grid">
+        <div class="grid-container">
+            <!-- Generar 81 casillas -->
+            <script>
+                for (let i = 0; i < 81; i++) {
+                    document.write('<input type="number" class="grid-item" min="1" max="9">');
+                }
+            </script>
+        </div>
+    </section>
+    <section id="tecladoNumerico">
+        <div><button>1</button><button>2</button><button>3</button></div>
+        <div><button>4</button><button>5</button><button>6</button></div>
+        <div><button>7</button><button>8</button><button>9</button></div>
+    </section>
+
+
+    
+</body>
+<footer>
+    <nav>
+        <a href="#" id="">Objeto</a>
+        <a href="#" id="">Objeto</a>
+        <a href="#" id="">Objeto</a>
+        <a href="#" id="">Objeto</a>
+
+    </nav>
+</footer>
+</html>
