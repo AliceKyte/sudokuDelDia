@@ -1,8 +1,8 @@
-function generarSudoku{
+function generarSudoku() {
     let sudoku = Array.from({length: 9}, () => Array.from({length: 9}, () => 0));
 
     function esValido(fila, columna, numero){
-        for(let i = 0; i < 9; i++){
+        for (let i = 0; i < 9; i++) {
             if(sudoku[fila][i] == numero || sudoku[i][columna] == numero){
                 return false;
             }
