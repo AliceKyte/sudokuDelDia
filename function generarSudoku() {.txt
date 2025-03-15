@@ -1,0 +1,73 @@
+function generarSudoku() {
+  let sudoku = Array.from({ length: 9 }, () => Array(9).fill(0));
+
+  function esValido(fila, columna, num) {
+    // Verifica fila y columna
+    for (let i = 0; i < 9; i++) {
+      if (sudoku[fila][i] === num || sudoku[i][columna] === num) return false;
+    }
+
+    // Verifica subcuadrícula de 3x3
+    let startRow = Math.floor(fila / 3) * 3;
+    let startCol = Math.floor(columna / 3) * 3;
+    for (let i = 0; i < 3; i++) {
+      for (let j = 0; j < 3; j++) {
+        if (sudoku[startRow + i][startCol + j] === num) return false;
+      }
+    }
+    return true;
+  }
+
+  function resolverSudoku(fila = 0, columna = 0) {
+    if (fila === 9) return true;
+    if (columna === 9) return resolverSudoku(fila + 1, 0);
+    if (sudoku[fila][columna] !== 0) return resolverSudoku(fila, columna + 1);
+
+    let numeros = Array.from({ length: 9 }, (_, i) => i + 1).sort(() => Math.random() - 0.5);
+
+    for (let num of numeros) {
+      if (esValido(fila, columna, num)) {
+        sudoku[fila][columna] = num;
+        if (resolverSudoku(fila, columna + 1)) return true;
+        sudoku[fila][columna] = 0;
+      }
+    }
+    return false;
+  }
+
+  resolverSudoku();
+  return sudoku;
+}
+
+function crearTablero() {
+  let sudoku = generarSudoku();
+  
+  // Ocultar números para hacer el reto
+  let pistas = 30; // Ajusta este número para cambiar la dificultad
+  let ocultar = Array.from({ length: 81 }, (_, i) => i).sort(() => Math.random() - 0.5).slice(0, 81 - pistas);
+
+  let parentGrid = document.getElementById("actual-grid");
+  parentGrid.innerHTML = ""; // Limpia el tablero
+
+  for (let fila = 0; fila < 9; fila++) {
+    for (let columna = 0; columna < 9; columna++) {
+      let cell = document.createElement("div");
+      cell.classList.add("grid-item");
+
+      let id = `box_${fila}_${columna}`;
+      cell.id = id;
+
+      if (ocultar.includes(fila * 9 + columna)) {
+        cell.classList.add("interact");
+        cell.tabIndex = 1;
+      } else {
+        cell.innerHTML = sudoku[fila][columna];
+        cell.classList.add("fixed"); // Evitar cambios en estos números
+      }
+
+      parentGrid.appendChild(cell);
+    }
+  }
+}
+
+crearTablero();

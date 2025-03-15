@@ -1,115 +1,207 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <style>
-    :root{
-        font-family: 'ArialRounded', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+      :root {
+        font-family: "ArialRounded", -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji",
+          "Segoe UI Emoji", "Segoe UI Symbol";
         --rich-black: #031926ff;
-        --teal: #468189ff;
-        --cambridge-blue: #77aca2ff;
-        --ash-gray: #9dbebbff;
-    }
-    body{
-        background-color: var(--ash-gray);
-    }
-    footer{
+        --color1: #b4edd2ff;
+        --color2: #a0cfd3ff;
+        --color3: #8d94baff;
+        --color4: #9a7aa0ff;
+      }
+      /* *{margin: 0; padding: 0; box-sizing: border-box;} */
+      body {
+        display: flex;
+        flex-flow: column;
+        justify-content: center;
+        /* position: relative; */
+        background-color: var(--color3);
+        margin-bottom: 40px;
+        height: calc(100% - 40px);
+      }
+      footer {
+        position: fixed;
+        bottom: 0%;
         background-color: var(--rich-black);
-        position: botton;
+
         width: 100%;
         height: 40px;
-        margin: auto;
-    }
-    footer nav{
+      }
+      footer nav {
+        padding-left: 30px;
+        padding-right: 30px;
+        padding-top: 10px;
         text-align: center;
         align-content: center;
-    }
-    nav a{
-        color: var(--ash-gray);
-        padding: 4.3rem;
-        margin: auto;
-    }
-    section{
+      }
+      nav {
+        display: flex;
+        justify-content: space-between;
+      }
+      nav a {
+        color: var(--color3);
+      }
+      section {
         text-align: center;
         align-content: center;
-    }
-    h1{
-        background-color: var(--teal);
+      }
+      header{
+        margin: 0; padding: 0; box-sizing: border-box;
+        background-color: var(--color2);
         text-align: center;
-    }
-    section #tecladoNumerico{
-        background-color: var(--cambridge-blue);
-        border: solid, 2px, red;
-        margin-bottom: 30px auto;
-    }
-    button{
+      }
+      section #tecladoNumerico {
+        background-color: var(--color2);
+        margin-bottom: 60px auto;
+      }
+      input[type="button"] {
         color: var(--rich-black);
-        background-color: var(--cambridge-blue);
+        background-color: var(--color2);
         width: 60px;
         height: 60px;
         margin: 6px;
-        
-    }
-    .grid-container {
-            display: grid;
-            grid-template-columns: repeat(9, 1fr);
-            gap: 5px;
-            max-width: 400px;
-            width: 100%;
-            margin: 20px auto;
-            margin-bottom: 40px;
-            border: solid, 2px, red;
-        }
-    .grid-item {
-        width: 80%;
-        height: 30px;
+      }
+      .grid-container {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 8px;
+        border-right: 5px solid var(--color1);
+        border-bottom: 5px solid var(--color1);
+        padding: 4px;
+        border-collapse: collapse;
+      }
+      .grid-container:nth-child(3n) {
+        border-right: none;
+      }
+      .grid-container:nth-child(n+7) {
+        border-bottom: none;
+      }
+      .grid-item {
+        width: 45px;
+        aspect-ratio: 1/1;
+        background: white;
         text-align: center;
         margin: 0px;
         border-radius: 5px;
-    }
-    .grid-item:hover{
-        background-color: var(--cambridge-blue);
-    }
-    .actual-Grid{
-        margin-bottom: 20px;
-    }
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+      }
+      .grid-item.active {
+        background-color: var(--color2);
+      }
+      .grid-item.interact:hover {
+        cursor: pointer;
+        background-color: var(--color2);
+      }
+      #actual-grid {
+        display: grid;
+        grid-template-columns: repeat(3, max-content);
+        border: 5px solid var(--color1);
+        margin: 2rem auto;
+      }
     </style>
+  </head>
 
-</head>
+  <header>
+    <h1>Sudoku</h1>
+  </header>
+  <body>
+    <p>
+      Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore
+      illum. Officia, expedita? Animi voluptatibus, aperiam fugit excepturi
+      dolorem saepe.
+    </p>
+    <section id="actual-grid"></section>
 
-<header>
-    <h1>Sudoku diario</h1>
-</header>
-<body>
-    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Atque, inventore illum. Officia, expedita? Animi voluptatibus, aperiam fugit excepturi dolorem saepe.</p>
-    <section id="actual-Grid">
-        <div class="grid-container">
-            <!-- Generar 81 casillas -->
-            <script>
-                for (let i = 0; i < 81; i++) {
-                    document.write('<input type="number" class="grid-item" min="1" max="9">');
-                }
-            </script>
-        </div>
-    </section>
     <section id="tecladoNumerico">
-        <div><button>1</button><button>2</button><button>3</button></div>
-        <div><button>4</button><button>5</button><button>6</button></div>
-        <div><button>7</button><button>8</button><button>9</button></div>
+      <div>
+        <input type="button" value="1" />
+        <input type="button" value="2" />
+        <input type="button" value="3" />
+      </div>
+      
+      <div>
+        <input type="button" value="4" />
+        <input type="button" value="5" />
+        <input type="button" value="6" />
+      </div>
+
+      <div>
+        <input type="button" value="7" />
+        <input type="button" value="8" />
+        <input type="button" value="9" />
+      </div>
+      
     </section>
-
-
-    
-</body>
-<footer>
+  </body>
+  <footer>
     <nav>
-        <a href="#" id="">Objeto</a>
-        <a href="#" id="">Objeto</a>
-        <a href="#" id="">Objeto</a>
-        <a href="#" id="">Objeto</a>
-
+      <a href="#" id="">Objeto</a>
+      <a href="#" id="">Objeto</a>
+      <a href="#" id="">Objeto</a>
+      <a href="#" id="">Objeto</a>
     </nav>
-</footer>
+  </footer>
+  <script>
+    const parentGrid = document.getElementById("actual-grid");
+    const dataCells = new Array(9).fill(null).map(() => [])
+
+    function genCell(preffix) {
+      const subGrid = document.createElement("div");
+      subGrid.classList.add("grid-container");
+      
+      for (let i = 0; i < 9; i++) {
+        const compensarX = (preffix * 3) % 9;
+        const x = (i % 3) + compensarX;
+
+        const compensarY = Math.floor(preffix / 3) * 3;
+        const y = Math.floor(i / 3) + compensarY;
+
+        const box1 = document.createElement("div");
+        box1.classList.add("grid-item");
+        box1.id = `box_${x}_${y}`;
+
+        // start
+        box1.classList.add("interact");
+        box1.tabIndex = 1;
+        box1.addEventListener("click", () => {
+          if (box1.tabIndex) {
+            box1.classList.add("active");
+          }
+        });
+        box1.addEventListener("blur", () => box1.classList.remove("active"));
+        // end
+
+        subGrid.appendChild(box1);
+        dataCells[y][x] = box1;
+      }
+
+      parentGrid.appendChild(subGrid);
+    }
+
+    for (let i = 0; i < 9; i++) {
+      genCell(i)
+    }
+
+    document.querySelectorAll("#tecladoNumerico input").forEach((numero) => {
+      numero.addEventListener("mousedown", () => {
+        const box = document.querySelector(".active");
+        if (box) {
+          box.innerHTML = numero.value;
+        }
+      })
+    });
+
+    dataCells[2][1].innerHTML = 4;
+    dataCells[2][1].tabIndex = 0;
+    dataCells[2][1].classList.remove("interact");
+  </script>
 </html>
