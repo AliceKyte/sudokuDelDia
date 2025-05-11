@@ -1,6 +1,16 @@
 const parentGrid = document.getElementById("actual-grid");
 const dataCells = new Array(9).fill(null).map(() => [])
 
+const EASY = "easy"
+const NORMAL = "normal"
+const HARD = "hard"
+
+const DIFFICULTY = {
+    [EASY]: 50,
+    [NORMAL]: 35,
+    [HARD]: 23,
+};
+
 function genCell(preffix) {
     const subGrid = document.createElement("div");
     subGrid.classList.add("grid-container");

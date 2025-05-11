@@ -487,18 +487,20 @@ function formatSudoku(grid) {
 
 // Example usage:
 // Generate a minimal puzzle with only 17 clues (most difficult)
-const seed = Math.random();  // Can be a string or number
-const result = generateSudoku(seed, 17);
-console.log("Puzzle:");
-console.log(formatSudoku(result.puzzle));
-console.log("Solution:");
-console.log(formatSudoku(result.solution));
-console.log(`Clues remaining: ${result.clues}`);
-console.log(`Has unique solution: ${result.uniqueSolution}`);
+const today = new Date();
+const seed = +`${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`;  // Can be a string or number
+// const result = generateSudoku(seed, 35);
+// console.log("Puzzle:");
+// console.log(formatSudoku(result.puzzle));
+// console.log("Solution:");
+// console.log(formatSudoku(result.solution));
+// console.log(`Clues remaining: ${result.clues}`);
+// console.log(`Has unique solution: ${result.uniqueSolution}`);
 
 // Export functions for usage
 module.exports = {
 	generateSudoku,
+	seed,
 	formatSudoku,
 	createRandomGenerator
 };
