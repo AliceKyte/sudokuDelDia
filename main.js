@@ -48,7 +48,7 @@ for (let i = 0; i < 9; i++) {
     genCell(i)
 }
 
-document.querySelectorAll("#tecladoNumerico input").forEach((numero) => {
+document.querySelectorAll("#tecladoNumerico .numeros input ").forEach((numero) => {
     numero.addEventListener("mousedown", () => {
         const box = document.querySelector(".active");
         if (box) {
@@ -57,5 +57,25 @@ document.querySelectorAll("#tecladoNumerico input").forEach((numero) => {
     })
 });
 
+// Añadir evento de teclado para los números
+document.addEventListener("keydown", (event) => {
+    const box = document.querySelector(".active");
+    if (box && event.key >= 1 && event.key <= 9) {
+        box.innerHTML = event.key;
+    }
+});
 
+// Añadir evento de teclado para borrar números
+document.addEventListener("keydown", (event) => {
+    const box = document.querySelector(".active");
+    if (box && event.key === "Backspace") {
+        box.innerHTML = "";
+    }
+});
 
+document.getElementById('borrar').addEventListener('mousedown', (event) => {
+    const box = document.querySelector(".active");
+    if (box) {
+        box.innerHTML = "";
+    }
+});
