@@ -1,5 +1,6 @@
 const parentGrid = document.getElementById("actual-grid");
 const dataCells = new Array(9).fill(null).map(() => [])
+import { generateSudoku } from "./claude.js"
 
 const EASY = "easy"
 const NORMAL = "normal"
@@ -10,6 +11,8 @@ const DIFFICULTY = {
     [NORMAL]: 35,
     [HARD]: 23,
 };
+
+const sudoku = generateSudoku(DIFFICULTY[NORMAL])
 
 function genCell(preffix) {
     const subGrid = document.createElement("div");
@@ -27,14 +30,20 @@ function genCell(preffix) {
         box1.id = `box_${x}_${y}`;
 
         // start
-        box1.classList.add("interact");
-        box1.tabIndex = 1;
-        box1.addEventListener("click", () => {
-            if (box1.tabIndex) {
-                box1.classList.add("active");
-            }
-        });
-        box1.addEventListener("blur", () => box1.classList.remove("active"));
+        const cellValue = sudoku.puzzle[y][x];
+
+        if (cellValue == 0) {
+            box1.classList.add("interact");
+            box1.tabIndex = 1;
+            box1.addEventListener("click", () => {
+                if (box1.tabIndex) {
+                    box1.classList.add("active");
+                }
+            });
+            box1.addEventListener("blur", () => box1.classList.remove("active"));
+        } else {
+            box1.innerHTML = cellValue;
+        }
         // end
 
         subGrid.appendChild(box1);
@@ -73,7 +82,7 @@ document.addEventListener("keydown", (event) => {
     }
 });
 
-document.getElementById('borrar').addEventListener('mousedown', (event) => {
+document.getElementById('borrar').addEventListener('mousedown', () => {
     const box = document.querySelector(".active");
     if (box) {
         box.innerHTML = "";

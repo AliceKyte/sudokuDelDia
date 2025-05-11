@@ -4,6 +4,15 @@
  */
 
 /**
+ * Generate random seed daily
+ */
+const today = new Date();
+const seed = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`;
+
+// random number generator seeded
+const random = createRandomGenerator(seed);
+
+/**
  * A simple seeded random number generator
  * @param {number|string} seed - The random seed
  * @returns {function} A function that returns a random number between 0 and 1
@@ -34,11 +43,8 @@ function createRandomGenerator(seed) {
  * Creates a new sudoku puzzle with the given seed
  * @param {number|string} seed - Random seed for generation
  * @param {number} numClues - Target number of clues to keep (17-30 recommended)
- * @returns {Object} An object containing the full solution and the puzzle
  */
-function generateSudoku(seed, numClues = 17) {
-	const random = createRandomGenerator(seed);
-
+export function generateSudoku(numClues = 17) {
 	// Minimum valid clues is 17 (mathematically proven)
 	numClues = Math.max(numClues, 17);
 
@@ -454,53 +460,3 @@ function countSolutions(grid, counter) {
 
 	return false;
 }
-
-/**
- * Format a sudoku grid as a string for display
- * @param {number[][]} grid - The grid to format
- * @returns {string} Formatted string representation
- */
-function formatSudoku(grid) {
-	let result = '';
-	for (let i = 0; i < 9; i++) {
-		if (i % 3 === 0 && i !== 0) {
-			result += '------+-------+------\n';
-		}
-
-		for (let j = 0; j < 9; j++) {
-			if (j % 3 === 0 && j !== 0) {
-				result += '| ';
-			}
-
-			if (grid[i][j] === 0) {
-				result += '. ';
-			} else {
-				result += grid[i][j] + ' ';
-			}
-		}
-
-		result += '\n';
-	}
-
-	return result;
-}
-
-// Example usage:
-// Generate a minimal puzzle with only 17 clues (most difficult)
-const today = new Date();
-const seed = +`${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`;  // Can be a string or number
-// const result = generateSudoku(seed, 35);
-// console.log("Puzzle:");
-// console.log(formatSudoku(result.puzzle));
-// console.log("Solution:");
-// console.log(formatSudoku(result.solution));
-// console.log(`Clues remaining: ${result.clues}`);
-// console.log(`Has unique solution: ${result.uniqueSolution}`);
-
-// Export functions for usage
-module.exports = {
-	generateSudoku,
-	seed,
-	formatSudoku,
-	createRandomGenerator
-};
