@@ -47,6 +47,5 @@ document.querySelectorAll("#tecladoNumerico input").forEach((numero) => {
     })
 });
 
-dataCells[2][1].innerHTML = 4;
-dataCells[2][1].tabIndex = 0;
-dataCells[2][1].classList.remove("interact");
+
+
