@@ -43,6 +43,7 @@ function genCell(preffix) {
             box1.addEventListener("blur", () => box1.classList.remove("active"));
         } else {
             box1.innerHTML = cellValue;
+            box1.classList.add("disable");
         }
         // end
 
@@ -57,11 +58,37 @@ for (let i = 0; i < 9; i++) {
     genCell(i)
 }
 
+function isValid() {
+    for (let y in sudoku.solution) {
+        const row = sudoku.solution[y]
+
+        for (let x in row) {
+            const val = sudoku.solution[y][x]
+            const curr = dataCells[y][x].innerHTML
+
+            if (val != curr) return false;
+        }
+    }
+
+    return true;
+}
+
+console.log(sudoku.solution)
+
+function dispatchChange() {
+    console.time()
+    if (isValid()) {
+        console.log("GANASTE (ahora es verda)")
+    }
+    console.timeEnd()
+}
+
 document.querySelectorAll("#tecladoNumerico .numeros input ").forEach((numero) => {
     numero.addEventListener("mousedown", () => {
         const box = document.querySelector(".active");
         if (box) {
             box.innerHTML = numero.value;
+            dispatchChange()
         }
     })
 });
@@ -71,6 +98,7 @@ document.addEventListener("keydown", (event) => {
     const box = document.querySelector(".active");
     if (box && event.key >= 1 && event.key <= 9) {
         box.innerHTML = event.key;
+        dispatchChange()
     }
 });
 
@@ -79,6 +107,7 @@ document.addEventListener("keydown", (event) => {
     const box = document.querySelector(".active");
     if (box && event.key === "Backspace") {
         box.innerHTML = "";
+        dispatchChange()
     }
 });
 
@@ -86,5 +115,6 @@ document.getElementById('borrar').addEventListener('mousedown', () => {
     const box = document.querySelector(".active");
     if (box) {
         box.innerHTML = "";
+        dispatchChange()
     }
 });
