@@ -1,6 +1,6 @@
 const parentGrid = document.getElementById("actual-grid");
 const dataCells = new Array(9).fill(null).map(() => [])
-import { generateSudoku } from "./claude.js"
+import { generateSudoku, seed } from "./claude.js"
 
 const EASY = "easy"
 const NORMAL = "normal"
@@ -12,7 +12,9 @@ const DIFFICULTY = {
     [HARD]: 23,
 };
 
-const sudoku = generateSudoku(DIFFICULTY[NORMAL])
+const PERSISTENT_KEY = "SUDOKU_STATE_" + seed;
+const sudoku = generateSudoku(DIFFICULTY[NORMAL]);
+const initial = JSON.parse(localStorage.getItem(PERSISTENT_KEY));
 
 function genCell(preffix) {
     const subGrid = document.createElement("div");
@@ -41,6 +43,8 @@ function genCell(preffix) {
                 }
             });
             box1.addEventListener("blur", () => box1.classList.remove("active"));
+
+            if (initial && initial[y][x]) box1.innerHTML = initial[y][x];
         } else {
             box1.innerHTML = cellValue;
             box1.classList.add("disable");
@@ -59,28 +63,30 @@ for (let i = 0; i < 9; i++) {
 }
 
 function isValid() {
+    const state = new Array(9).fill(null).map(() => [])
+    let valid = true;
+
     for (let y in sudoku.solution) {
         const row = sudoku.solution[y]
 
         for (let x in row) {
             const val = sudoku.solution[y][x]
             const curr = dataCells[y][x].innerHTML
+            state[y][x] = curr;
 
-            if (val != curr) return false;
+            if (val != curr) valid = false;
         }
     }
 
-    return true;
+    localStorage.setItem(PERSISTENT_KEY, JSON.stringify(state))
+
+    return valid;
 }
 
-console.log(sudoku.solution)
-
 function dispatchChange() {
-    console.time()
     if (isValid()) {
         alert("GANASTE (ahora es verdà)")
     }
-    console.timeEnd()
 }
 
 document.querySelectorAll("#tecladoNumerico .numeros input ").forEach((numero) => {
