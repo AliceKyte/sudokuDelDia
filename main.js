@@ -78,7 +78,7 @@ console.log(sudoku.solution)
 function dispatchChange() {
     console.time()
     if (isValid()) {
-        console.log("GANASTE (ahora es verda)")
+        alert("GANASTE (ahora es verda)")
     }
     console.timeEnd()
 }
