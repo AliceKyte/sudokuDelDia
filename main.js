@@ -111,14 +111,17 @@ function add() {
   timer();
 }
 function timer() {
-  t = setTimeout(add, 1000);
+    t = setTimeout(add, 1000);
 }
 document.querySelectorAll("#tecladoNumerico .numeros input ").forEach((numero) => {
     numero.addEventListener("mousedown", () => {
         const box = document.querySelector(".active");
         if (box) {
             box.innerHTML = numero.value;
-            dispatchChange()
+            dispatchChange();
+            if(!t) {
+            timer();
+        }
         }
     })
 });
@@ -128,8 +131,10 @@ document.addEventListener("keydown", (event) => {
     const box = document.querySelector(".active");
     if (box && event.key >= 1 && event.key <= 9) {
         box.innerHTML = event.key;
-        dispatchChange()
-        timer();
+        dispatchChange();
+        if(!t) {
+            timer();
+        }
     }
 });
 
