@@ -5,7 +5,12 @@ import { generateSudoku, seed } from "./claude.js"
 const EASY = "easy"
 const NORMAL = "normal"
 const HARD = "hard"
+var timerdiv = document.getElementById('timer');
 
+var sec = 0;
+var min = 0;
+var hrs = 0;
+var t;
 const DIFFICULTY = {
     [EASY]: 50,
     [NORMAL]: 35,
@@ -85,10 +90,29 @@ function isValid() {
 
 function dispatchChange() {
     if (isValid()) {
+          clearTimeout(t);
         alert("GANASTE (ahora es verdà)")
     }
 }
-
+function tick() {
+  sec++;
+  if (sec >= 60) {
+    sec = 0;
+    min++;
+    if (min >= 60) {
+      min = 0;
+      hrs++;
+    }
+  }
+}
+function add() {
+  tick();
+  timerdiv.innerHTML = (hrs > 9 ? hrs : '0' + hrs) + ':' + (min > 9 ? min : '0' + min) + ':' + (sec > 9 ? sec : '0' + sec);
+  timer();
+}
+function timer() {
+  t = setTimeout(add, 1000);
+}
 document.querySelectorAll("#tecladoNumerico .numeros input ").forEach((numero) => {
     numero.addEventListener("mousedown", () => {
         const box = document.querySelector(".active");
@@ -105,6 +129,7 @@ document.addEventListener("keydown", (event) => {
     if (box && event.key >= 1 && event.key <= 9) {
         box.innerHTML = event.key;
         dispatchChange()
+        timer();
     }
 });
 

@@ -19,7 +19,14 @@ body {
 	margin-bottom: 40px;
 	height: calc(100% - 40px);
 }
-
+.crono{
+	font-size: 2rem;
+	text-align: center;
+	margin: 0 auto;
+	padding: 0;
+	color: var(--rich-black);
+}
+	
 footer {
 	position: fixed;
 	bottom: 0%;
@@ -112,6 +119,7 @@ input[type="button"] {
 
 .disable {
 	background-color: lightgray;
+	font-weight: bold;
 }
 
 #actual-grid {
