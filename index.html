@@ -19,46 +19,48 @@
 
   Cada día subimos un nuevo Sudoku para que pongas a prueba tu lógica, te distraigas un rato.
 
-  No necesitas ser un genio, solo tener ganas de jugar y pensar un poquito. ¿Listo para el reto de hoy? 🧠💥
+  No necesitas ser un genio, solo tener ganas de jugar y pensar un poquito. ¿Listo para el reto de hoy? 
 
   </p>
-  <section id="actual-grid"></section>
+  
+    <div class="game-container">
+      <section id="actual-grid"></section>
+      <section id="tecladoNumerico">
+        <div class="numeros">
+          <input type="button" value="1" />
+          <input type="button" value="2" />
+          <input type="button" value="3" />
+        </div>
 
-  <section id="tecladoNumerico">
-    <div class="numeros">
-      <input type="button" value="1" />
-      <input type="button" value="2" />
-      <input type="button" value="3" />
+        <div class="numeros">
+          <input type="button" value="4" />
+          <input type="button" value="5" />
+          <input type="button" value="6" />
+        </div>
+
+        <div class="numeros">
+          <input type="button" value="7" />
+          <input type="button" value="8" />
+          <input type="button" value="9" />
+        </div>
+
+        <div>
+          <input id="borrar" type="button" value="BORRAR" />
+        </div>
+      </section>
     </div>
+  </main>
 
-    <div class="numeros">
-      <input type="button" value="4" />
-      <input type="button" value="5" />
-      <input type="button" value="6" />
-    </div>
+  <footer>
+    <nav>
+      <a href="#" id="">Objeto</a>
+      <a href="#" id="">Objeto</a>
+      <a href="#" id="">Objeto</a>
+      <a href="#" id="">Objeto</a>
+    </nav>
+  </footer>
 
-    <div class="numeros">
-      <input type="button" value="7" />
-      <input type="button" value="8" />
-      <input type="button" value="9" />
-    </div>
-
-    <div>
-      <input id = "borrar" type="button" value="BORRAR" />
-    </div>
-
-  </section>
+  <script type="module" src="./main.js"></script>
 </body>
-
-<footer>
-  <nav>
-    <a href="#" id="">Objeto</a>
-    <a href="#" id="">Objeto</a>
-    <a href="#" id="">Objeto</a>
-    <a href="#" id="">Objeto</a>
-  </nav>
-</footer>
-
-<script type="module" src="./main.js"></script>
 
 </html>
