@@ -1,18 +1,25 @@
 const parentGrid = document.getElementById("actual-grid");
 const dataCells = new Array(9).fill(null).map(() => [])
-import { generateSudoku } from "./claude.js"
+import { generateSudoku, seed } from "./claude.js"
 
 const EASY = "easy"
 const NORMAL = "normal"
 const HARD = "hard"
+var timerdiv = document.getElementById('timer');
 
+var sec = 0;
+var min = 0;
+var hrs = 0;
+var t;
 const DIFFICULTY = {
     [EASY]: 50,
     [NORMAL]: 35,
     [HARD]: 23,
 };
 
-const sudoku = generateSudoku(DIFFICULTY[NORMAL])
+const PERSISTENT_KEY = "SUDOKU_STATE_" + seed;
+const sudoku = generateSudoku(DIFFICULTY[NORMAL]);
+const initial = JSON.parse(localStorage.getItem(PERSISTENT_KEY));
 
 function genCell(preffix) {
     const subGrid = document.createElement("div");
@@ -41,6 +48,8 @@ function genCell(preffix) {
                 }
             });
             box1.addEventListener("blur", () => box1.classList.remove("active"));
+
+            if (initial && initial[y][x]) box1.innerHTML = initial[y][x];
         } else {
             box1.innerHTML = cellValue;
             box1.classList.add("disable");
@@ -59,36 +68,60 @@ for (let i = 0; i < 9; i++) {
 }
 
 function isValid() {
+    const state = new Array(9).fill(null).map(() => [])
+    let valid = true;
+
     for (let y in sudoku.solution) {
         const row = sudoku.solution[y]
 
         for (let x in row) {
             const val = sudoku.solution[y][x]
             const curr = dataCells[y][x].innerHTML
+            state[y][x] = curr;
 
-            if (val != curr) return false;
+            if (val != curr) valid = false;
         }
     }
 
-    return true;
-}
+    localStorage.setItem(PERSISTENT_KEY, JSON.stringify(state))
 
-console.log(sudoku.solution)
+    return valid;
+}
 
 function dispatchChange() {
-    console.time()
     if (isValid()) {
+          clearTimeout(t);
         alert("GANASTE (ahora es verdà)")
     }
-    console.timeEnd()
 }
-
+function tick() {
+  sec++;
+  if (sec >= 60) {
+    sec = 0;
+    min++;
+    if (min >= 60) {
+      min = 0;
+      hrs++;
+    }
+  }
+}
+function add() {
+  tick();
+  timerdiv.innerHTML = (hrs > 9 ? hrs : '0' + hrs) + ':' + (min > 9 ? min : '0' + min) + ':' + (sec > 9 ? sec : '0' + sec);
+  timer();
+}
+function timer() {
+    t = setTimeout(add, 1000);
+}
 document.querySelectorAll("#tecladoNumerico .numeros input ").forEach((numero) => {
     numero.addEventListener("mousedown", () => {
         const box = document.querySelector(".active");
         if (box) {
             box.innerHTML = numero.value;
-            dispatchChange()
+            dispatchChange();
+            if(!t) {
+            timer();
+        }
         }
     })
 });
@@ -98,7 +131,10 @@ document.addEventListener("keydown", (event) => {
     const box = document.querySelector(".active");
     if (box && event.key >= 1 && event.key <= 9) {
         box.innerHTML = event.key;
-        dispatchChange()
+        dispatchChange();
+        if(!t) {
+            timer();
+        }
     }
 });
 

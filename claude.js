@@ -4,10 +4,10 @@
  */
 
 /**
- * Generate random seed daily
+ * Generate random seed daily based on Spain peninsula time zone (CET/CEST)
  */
-const today = new Date();
-const seed = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`;
+const today = new Date(new Date().toLocaleString("en-US", { timeZone: "Europe/Madrid" }));
+export const seed = `${today.getFullYear()}${today.getMonth() + 1}${today.getDate()}`;
 
 // random number generator seeded
 const random = createRandomGenerator(seed);
