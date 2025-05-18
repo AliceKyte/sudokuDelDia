@@ -27,14 +27,24 @@
   </p>
 
   <div class="crono">
+    <div class="difficult-selector">
+      <label for="dificultad">Selecciona la dificultad:</label>
+        <select id="dificultad">
+          <option value="facil">Fácil</option>
+          <option value="medio">Medio</option>
+          <option value="dificil">Difícil</option>
+        </select>
+    </div>
     <h1 id="timer"><time>00:00:00</time></h1>
   </div>
+
 
   <!-- CONTENEDOR FLEXIBLE -->
   <div class="sudoku-container">
     <section id="actual-grid"></section>
 
     <section id="tecladoNumerico">
+
       <div class="numeros">
         <input type="button" value="1" />
         <input type="button" value="2" />
